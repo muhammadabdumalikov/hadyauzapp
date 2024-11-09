@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {ScrollView, Pressable} from 'react-native';
 import {UrbanistSemiboldText} from '../StyledText';
 import {LinearWrapper} from './linear-wrapper';
@@ -6,7 +6,7 @@ import {ScrollViewProps} from '../Themed';
 import {textColors} from '@/constants/Colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function RatingScrollFilter(
+function RatingScrollFilter(
   props: ScrollViewProps & {ratings: (string | number)[]},
 ) {
   const [selectedCategory, setSelectedCategory] = useState<string | number>(5);
@@ -84,3 +84,5 @@ export default function RatingScrollFilter(
     </ScrollView>
   );
 }
+
+export default memo(RatingScrollFilter);

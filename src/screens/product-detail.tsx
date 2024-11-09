@@ -5,7 +5,6 @@ import {
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
 import Animated2 from 'react-native-reanimated';
-import {LinearGradient} from 'react-native-svg';
 import BagSvg from '../assets/icons/bag';
 import {WishlistHeartSvg} from '../assets/icons/favorite-heart';
 import {GoBackButtonAbsolute} from '../components/app-components/go-back';
@@ -14,6 +13,7 @@ import {SemiFilledStar} from '../components/app-components/star-percentage';
 import {UrbanistBoldText, UrbanistMediumText} from '../components/StyledText';
 import {textColors} from '../constants/Colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function ProductDetailScreen() {
   const animationTime = 500;
@@ -83,9 +83,11 @@ export default function ProductDetailScreen() {
         </View>
 
         <View style={styles.productTitleRow}>
-          <UrbanistBoldText numberOfLines={2} style={styles.productTitle}>
-            Подарочный набор для мужчин THE MOON
-          </UrbanistBoldText>
+          <View style={styles.productTitleTxt}>
+            <UrbanistBoldText numberOfLines={2} style={styles.productTitle}>
+              Подарочный набор для мужчин THE MOON
+            </UrbanistBoldText>
+          </View>
           <WishlistHeartSvg
             width={28}
             height={28}
@@ -218,6 +220,7 @@ export default function ProductDetailScreen() {
               justifyContent: 'center',
               alignItems: 'center',
               borderRadius: 100,
+              paddingHorizontal: 30,
             }}>
             <BagSvg height={20} width={20} />
             <UrbanistBoldText style={styles.buyBtnTxt}>
@@ -251,8 +254,8 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     justifyContent: 'space-between',
   },
+  productTitleTxt: {flex: 1},
   productTitle: {
-    width: 358,
     fontWeight: '700',
     fontSize: 24,
     color: textColors.navyBlack,
@@ -353,6 +356,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    backgroundColor: textColors.pureWhite,
     width: '100%',
     borderColor: textColors.grey3,
     borderWidth: 1,
@@ -379,7 +383,6 @@ const styles = StyleSheet.create({
     color: textColors.navyBlack,
   },
   buyBtn: {
-    width: 235,
     height: 58,
   },
   buyBtnTxt: {

@@ -1,10 +1,10 @@
 import {ScrollView, StyleSheet, View} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {GoBackButton} from '../components/app-components/go-back';
 import {NotificationList} from '../components/app-components/notifiсation-element';
 import {UrbanistBoldText} from '../components/StyledText';
 import {textColors} from '../constants/Colors';
 import {SafeAreaView} from '../components/Themed';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const notifications = [
   {

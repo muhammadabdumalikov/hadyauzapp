@@ -134,7 +134,6 @@ export default function IdeasScreen() {
             height: 170,
             width: '32%',
             borderRadius: 15,
-            backgroundColor: 'red',
           }}
           source={require('@/assets/images/wedding-trash.png')}
         />

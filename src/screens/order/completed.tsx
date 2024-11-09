@@ -1,5 +1,5 @@
 import {EmptySvg} from '@/assets/images/empty';
-import {ProductCardFullScreenForCompleted} from '@/components/app-components/product-card-full-screen copy';
+import {ProductCardFullScreenForCompleted} from '@/components/app-components/product-card-full-screen';
 import {
   UrbanistBoldText,
   UrbanistMediumText,
@@ -9,8 +9,8 @@ import {textColors} from '@/constants/Colors';
 import {useRef, useState} from 'react';
 import {View, FlatList, Pressable, StyleSheet} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {MyRefType} from '../search-screen';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const data = ['1', '2', '3', '4', '5', '6'];
 

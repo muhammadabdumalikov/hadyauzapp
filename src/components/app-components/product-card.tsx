@@ -10,15 +10,22 @@ import {
 } from '../StyledText';
 import {SemiFilledStar} from './star-percentage';
 import {FavoriteHeartBtn} from './favorte-btn';
+import {useNavigation} from '@react-navigation/native';
 
 export type Props = {
   product: IProduct;
 };
 
 const ProductCardComponent = function ({product}: Props) {
+  const navigation = useNavigation();
+
+  const openCardDetailScreen = () => {
+    navigation.navigate('product-detail-screen');
+  };
+
   return (
     // <Link href={{pathname: '/screens/product-detail'}} asChild>
-    <Pressable style={styles.box}>
+    <Pressable style={styles.box} onPress={openCardDetailScreen}>
       <View style={[styles.image]}>
         <ImageBackground style={styles.imageBox} source={product.image} />
       </View>

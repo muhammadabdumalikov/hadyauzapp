@@ -1,18 +1,17 @@
-import React, {useRef, useState} from 'react';
+import React, {memo, useRef, useState} from 'react';
 import {StyleSheet, Pressable, ImageBackground, Animated} from 'react-native';
 
 import {View} from '../Themed';
 import {UrbanistBoldText, UrbanistMediumText} from '../StyledText';
 import DeleteIconSvg from '@/assets/icons/delete-icon';
-import { textColors } from '@/constants/Colors';
-import AntDesign from 'react-native-vector-icons';
-console.log(444444, AntDesign);
+import {textColors} from '@/constants/Colors';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export type Props = {
   handleDelete: () => void;
 };
 
-export const ProductCardForCartBag = (props: Props) => {
+export const ProductCardForCartBag = memo((props: Props) => {
   const animationTime = 500;
 
   const counterAnimatedValue = useRef(new Animated.Value(0)).current;
@@ -59,20 +58,17 @@ export const ProductCardForCartBag = (props: Props) => {
       <View style={styles.detail}>
         <View
           style={{
-            flex: 1,
             flexDirection: 'row',
-            alignItems: 'flex-start',
-            justifyContent: 'space-between',
           }}>
-          <View>
-            <UrbanistBoldText style={styles.productTitle}>
-              Сумка из кожи
+          <View style={{flex: 1}}>
+            <UrbanistBoldText style={styles.productTitle} numberOfLines={2}>
+              Сумка из кожи dfsfsdfdsfsdfsfsdfsdfdsfs
             </UrbanistBoldText>
 
             <View style={styles.info}>
               <View style={styles.colorCircle} />
               <UrbanistMediumText style={styles.infoTxt}>
-                Цвет | Размер = M | Qty = 1
+                Цвет | Размер = M
               </UrbanistMediumText>
             </View>
           </View>
@@ -86,9 +82,11 @@ export const ProductCardForCartBag = (props: Props) => {
         </View>
 
         <View style={styles.priceRow}>
-          <UrbanistBoldText style={styles.priceTxt}>
-            445 000 сум
-          </UrbanistBoldText>
+          <View style={{width: '55%'}}>
+            <UrbanistBoldText style={styles.priceTxt}>
+              445 000 сум
+            </UrbanistBoldText>
+          </View>
 
           <View style={styles.counterBox}>
             <Pressable
@@ -117,9 +115,9 @@ export const ProductCardForCartBag = (props: Props) => {
       </View>
     </Pressable>
   );
-};
+});
 
-export const ProductCardForCartBagRefSheet = () => {
+export const ProductCardForCartBagRefSheet = memo(() => {
   const animationTime = 500;
 
   const counterAnimatedValue = useRef(new Animated.Value(0)).current;
@@ -179,7 +177,7 @@ export const ProductCardForCartBagRefSheet = () => {
             <View style={styles.info}>
               <View style={styles.colorCircle} />
               <UrbanistMediumText style={styles.infoTxt}>
-                Цвет | Размер = M | Qty = 1
+                Цвет | Размер = M
               </UrbanistMediumText>
             </View>
           </View>
@@ -217,46 +215,9 @@ export const ProductCardForCartBagRefSheet = () => {
       </View>
     </Pressable>
   );
-};
+});
 
-export const ProductCardForConfirmation = (props: Props) => {
-  const animationTime = 500;
-
-  const counterAnimatedValue = useRef(new Animated.Value(0)).current;
-  const [productCountCounter, setProductCountCounter] = useState(1);
-
-  const startCounterAnimation = (value: number) => {
-    return Animated.spring(counterAnimatedValue, {
-      toValue: value,
-      useNativeDriver: true,
-      // damping: 3
-    });
-  };
-
-  const counterScale = counterAnimatedValue.interpolate({
-    inputRange: [-1, 0, 1],
-    outputRange: [1.5, 1, 1.5],
-    extrapolate: 'clamp',
-  });
-
-  const counterDecrement = () => {
-    if (productCountCounter > 0) {
-      setProductCountCounter(productCountCounter - 1);
-      startCounterAnimation(-1).start();
-      setTimeout(() => {
-        startCounterAnimation(0).start();
-      }, animationTime);
-    }
-  };
-
-  const counterIncrement = () => {
-    setProductCountCounter(productCountCounter + 1);
-    startCounterAnimation(1).start();
-    setTimeout(() => {
-      startCounterAnimation(0).start();
-    }, animationTime);
-  };
-
+export const ProductCardForConfirmation = memo((props: Props) => {
   return (
     <Pressable style={styles.box}>
       <ImageBackground
@@ -279,7 +240,7 @@ export const ProductCardForConfirmation = (props: Props) => {
             <View style={styles.info}>
               <View style={styles.colorCircle} />
               <UrbanistMediumText style={styles.infoTxt}>
-                Цвет | Размер = M | Qty = 1
+                Цвет | Размер = M
               </UrbanistMediumText>
             </View>
           </View>
@@ -298,14 +259,7 @@ export const ProductCardForConfirmation = (props: Props) => {
           </UrbanistBoldText>
 
           <View
-            style={[
-              styles.counterBox,
-              {
-                width: 36,
-                padding: 0,
-                justifyContent: 'center',
-              },
-            ]}>
+            style={styles.countBox}>
             <UrbanistBoldText
               style={[
                 {
@@ -313,14 +267,14 @@ export const ProductCardForConfirmation = (props: Props) => {
                   fontSize: 14,
                 },
               ]}>
-              {productCountCounter}
+              {99}
             </UrbanistBoldText>
           </View>
         </View>
       </View>
     </Pressable>
   );
-};
+});
 
 const styles = StyleSheet.create({
   box: {
@@ -340,16 +294,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   detail: {
-    // Remove or adjust flex: 1 here if needed for layout
     justifyContent: 'space-between',
-    width: 230,
+    flex: 1,
     marginLeft: 16,
     paddingTop: 10,
   },
   productTitle: {
     fontWeight: '700',
-    fontSize: 18,
-    marginBottom: 8,
+    fontSize: 16,
+    marginBottom: 5,
   },
   info: {
     flexDirection: 'row',
@@ -365,26 +318,24 @@ const styles = StyleSheet.create({
   },
   infoTxt: {
     fontWeight: '500',
-    fontSize: 12,
+    fontSize: 11,
     color: textColors.darkGrey,
   },
   priceRow: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 32,
   },
   priceTxt: {
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 14,
   },
   counterBox: {
     backgroundColor: textColors.grey2,
     paddingHorizontal: 12,
     borderRadius: 100,
     height: 36,
-    width: 93,
+    width: '45%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -392,5 +343,14 @@ const styles = StyleSheet.create({
   counterIconsStyle: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  countBox: {
+    backgroundColor: textColors.grey2,
+    borderRadius: 100,
+    height: 40,
+    width: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

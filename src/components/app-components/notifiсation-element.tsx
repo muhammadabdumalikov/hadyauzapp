@@ -3,9 +3,9 @@ import {StyleSheet, LayoutChangeEvent} from 'react-native';
 import {View} from '../Themed';
 import {UrbanistBoldText, UrbanistMediumText} from '../StyledText';
 import {textColors} from '@/constants/Colors';
-import {LinearGradient} from 'react-native-svg';
 import {checkDateRelation} from '@/utils/check-date-relation';
 import {NotificationSale} from '@/assets/icons/notification-sale';
+import LinearGradient from 'react-native-linear-gradient';
 
 export interface INotificationListParams {
   date: string;

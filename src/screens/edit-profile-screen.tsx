@@ -16,13 +16,13 @@ import {
   withTiming,
   useAnimatedStyle,
 } from 'react-native-reanimated';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import BottomButton from '../components/app-components/bottom-btn';
 import {CustomHeader} from '../components/app-components/go-back';
 import {UrbanistSemiboldTextInput} from '../components/StyledText';
 import {textColors} from '../constants/Colors';
 import dayjs from 'dayjs';
 import DateTimePicker from 'react-native-ui-datepicker';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {width} = Dimensions.get('screen');
 

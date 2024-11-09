@@ -10,18 +10,23 @@ import {
   View,
 } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {LinearGradient} from 'react-native-svg';
 import {MyRefType} from '../search-screen';
-import { BellIcon } from '@/assets/icons/bell';
+import {BellIcon} from '@/assets/icons/bell';
 import BuyNext from '@/assets/icons/buy-next';
-import { WishlistHeartSvg } from '@/assets/icons/favorite-heart';
-import { EmptySvg } from '@/assets/images/empty';
-import { ProductCardForCartBag, ProductCardForCartBagRefSheet } from '@/components/app-components/cart-bag-product-card copy';
-import { LinearWrapper } from '@/components/app-components/linear-wrapper';
-import { UrbanistBoldText, UrbanistMediumText } from '@/components/StyledText';
-import { textColors } from '@/constants/Colors';
+import {WishlistHeartSvg} from '@/assets/icons/favorite-heart';
+import {EmptySvg} from '@/assets/images/empty';
+import {
+  ProductCardForCartBag,
+  ProductCardForCartBagRefSheet,
+} from '@/components/app-components/cart-bag-product-card';
+import {LinearWrapper} from '@/components/app-components/linear-wrapper';
+import {UrbanistBoldText, UrbanistMediumText} from '@/components/StyledText';
+import {textColors} from '@/constants/Colors';
+import LinearGradient from 'react-native-linear-gradient';
+import {BlurView} from '@react-native-community/blur';
+import {FlashList} from '@shopify/flash-list';
 
-export default function CartScreen({navigation}) {
+export default function CartBagScreen({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
   const [data, setData] = useState(['1', '2', '3', '4']);
   const refRBSheet = useRef<MyRefType>(null);
@@ -44,7 +49,7 @@ export default function CartScreen({navigation}) {
   };
 
   return data.length > 0 ? (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: textColors.pureWhite}}>
       <View style={styles.header}>
         <UrbanistBoldText style={styles.headerText}>Заказы</UrbanistBoldText>
         <View style={{flexDirection: 'row'}}>
@@ -63,24 +68,30 @@ export default function CartScreen({navigation}) {
         </View>
       </View>
 
-      <FlatList
-        data={data}
+      <View
         style={{
+          flex: 1,
           backgroundColor: textColors.grey1,
-        }}
-        contentContainerStyle={styles.contentContainer}
-        renderItem={({item}) => (
-          <ProductCardForCartBag handleDelete={openBottomSheet} key={item} />
-        )}
-        keyExtractor={item => item}
-        // estimatedItemSize={10}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        showsVerticalScrollIndicator={false}
-      />
+        }}>
+        <FlashList
+          data={data}
+          contentContainerStyle={styles.contentContainer}
+          renderItem={({item}) => (
+            <ProductCardForCartBag handleDelete={openBottomSheet} key={item} />
+          )}
+          keyExtractor={item => item}
+          estimatedItemSize={152}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
 
-      <View style={styles.modalFooterPrice}>
+      <BlurView
+        style={styles.modalFooterPrice}
+        blurAmount={20}
+        blurType="light">
         <View style={styles.modalFooterPriceBox}>
           <UrbanistMediumText style={styles.modalFooterPriceTitle}>
             Итоговая цена
@@ -91,7 +102,7 @@ export default function CartScreen({navigation}) {
         </View>
         <Pressable
           style={styles.buyBtn}
-          onPress={() => navigation.push('screens/order-confirmation-screen')}>
+          onPress={() => navigation.navigate('order-confirmation-screen')}>
           <LinearGradient
             colors={['#7210FF', '#9D59FF']}
             style={{
@@ -107,7 +118,7 @@ export default function CartScreen({navigation}) {
             <BuyNext width={20} height={20} />
           </LinearGradient>
         </Pressable>
-      </View>
+      </BlurView>
 
       <RBSheet
         ref={refRBSheet}
@@ -211,6 +222,7 @@ const styles = StyleSheet.create({
     height: 90,
     left: 0,
     right: 0,
+    backgroundColor: textColors.backgroundBlur,
     bottom: Platform.OS === 'ios' ? 90 : 75,
     width: '100%',
     borderColor: textColors.grey3,
@@ -241,6 +253,10 @@ const styles = StyleSheet.create({
   buyBtn: {
     flex: 8,
     height: 58,
+    shadowColor: '#000', // Shadow color
+    shadowOffset: {width: 0, height: 4}, // Positioning of the shadow
+    shadowOpacity: 0.3, // Opacity of the shadow (0 to 1)
+    shadowRadius: 5, // Blur effect for the shadow
   },
   buyBtnTxt: {
     marginLeft: 16,

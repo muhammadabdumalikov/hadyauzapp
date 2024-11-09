@@ -1,13 +1,14 @@
 import {ReviewSvg} from '@/assets/icons/review';
 import {textColors} from '@/constants/Colors';
 import {Pressable, ImageBackground, View, StyleSheet} from 'react-native';
-import {LinearGradient} from 'react-native-svg';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   UrbanistBoldText,
   UrbanistMediumText,
   UrbanistSemiboldText,
 } from '../StyledText';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 export const ProductCardFullScreenForCurrent = () => {
   return (

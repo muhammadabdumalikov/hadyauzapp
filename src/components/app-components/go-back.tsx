@@ -1,9 +1,9 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ViewProps} from '../Themed';
 import {textColors} from '@/constants/Colors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export const GoBackButtonAbsolute = () => {
   const navigation = useNavigation();

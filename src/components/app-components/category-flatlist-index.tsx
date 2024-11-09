@@ -65,22 +65,19 @@ export const CategoryFlatlist = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 230,
-    maxHeight: 230,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    alignSelf: 'center',
     marginHorizontal: 11,
     marginTop: 10,
   },
   itemContainer: {
     height: 100,
-    // maxHeight: (100),
-    width: 88,
+    width: '20%',
     margin: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 15,
   },
   imageBox: {
     width: 60,

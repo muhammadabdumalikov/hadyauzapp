@@ -22,7 +22,7 @@ import {
 } from '../components/StyledText';
 import {textColors} from '../constants/Colors';
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {MaterialIcon} from '@/vector-icons/glyphmaps';
 
 interface Location {
   lat: number;
@@ -167,7 +167,7 @@ export function YandexMapScreen() {
       </View>
 
       <Pressable style={styles.floatingButton} onPress={getCurrentLocation}>
-        <MaterialIcons name="my-location" size={24} color="black" />
+        <MaterialIcon name="my-location" size={24} color="black" />
       </Pressable>
 
       <View style={styles.bottomSheetBox}>

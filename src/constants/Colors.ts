@@ -21,8 +21,8 @@ export const textColors = {
   purple: '#873afd',
   softPurple: '#f5ecff',
   bottomBarInactiveIconColor: 'rgba(158, 158, 158, 1)',
-  bottomBarBlur: 'rgba(255, 255, 255, 0.9)',
-  backgroundBlur: 'rgba(255, 255, 255, 0.95)',
+  bottomBarBlur: 'rgba(255, 255, 255, 0.8)',
+  backgroundBlur: 'rgba(255, 255, 255, 0.9)',
 }
 
 const tintColorLight = textColors.navyBlack;

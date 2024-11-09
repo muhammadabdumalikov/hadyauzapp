@@ -184,15 +184,15 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     marginBottom: 15,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   addressInfo: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
   textContainer: {
-    width: 260,
+    flex: 1,
     marginLeft: 10,
   },
   titleRow: {
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   editIcon: {
-    padding: 10,
+    padding: 5,
   },
   title: {
     fontSize: 24,

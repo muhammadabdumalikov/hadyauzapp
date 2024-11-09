@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {AntDesign} from '@expo/vector-icons';
+import {View, StyleSheet} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const SemiFilledStar = ({rating}: {rating: number}) => {
   const percentage = (rating / 5) * 100; // Calculate the percentage

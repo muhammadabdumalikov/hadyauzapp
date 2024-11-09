@@ -11,7 +11,6 @@ import {
 import {GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {SearchInputBox} from '../components/app-components/input-box';
 import {LinearWrapper} from '../components/app-components/linear-wrapper';
 import {ProductCard} from '../components/app-components/product-card';
@@ -26,6 +25,7 @@ import {
 import {textColors} from '../constants/Colors';
 import {PRODUCT_DATA} from '../constants/data';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const {width} = Dimensions.get('screen');
 
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   inputBox: {
-    width: 360,
+    flex: 1,
     marginBottom: 0,
     marginLeft: 0,
   },
@@ -358,7 +358,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 16,
     justifyContent: 'space-between',
-    backgroundColor: 'red',
     marginTop: 20,
   },
   resetButton: {

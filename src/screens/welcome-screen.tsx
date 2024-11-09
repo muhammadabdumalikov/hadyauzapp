@@ -1,18 +1,20 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, ImageBackground} from 'react-native';
-import {LinearGradient} from 'react-native-svg';
 import {
   UrbanistBoldText,
   UrbanistBlackText,
   UrbanistSemiboldText,
 } from '../components/StyledText';
 import {textColors} from '../constants/Colors';
+import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 
-export function WelcomeScreen({navigation}) {
+export function WelcomeScreen() {
+  const navigation = useNavigation();
   useEffect(() => {
     // Set a delay of 3 seconds before navigating
     const timeout = setTimeout(() => {
-      navigation.replace('screens/onboarding-screens'); // Replace to remove this screen from the stack
+      navigation.navigate('onboarding-screen'); // Replace to remove this screen from the stack
     }, 3000); // 3 seconds
     // Cleanup the timeout when the component unmounts
     return () => clearTimeout(timeout);

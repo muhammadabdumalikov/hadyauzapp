@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, FlatList, Image, StyleSheet} from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {WishlistHeartSvg} from '../assets/icons/favorite-heart';
 import {CustomHeader} from '../components/app-components/go-back';
 import RatingScrollFilter from '../components/app-components/rating-scroll-filter';
@@ -11,6 +10,7 @@ import {
 } from '../components/StyledText';
 import {textColors} from '../constants/Colors';
 import {SafeAreaView} from '../components/Themed';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const reviews = [
   {

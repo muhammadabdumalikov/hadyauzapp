@@ -1,6 +1,9 @@
 import {View} from '../Themed';
 import {Chase} from 'react-native-animated-spinkit';
 import {LinearWrapper} from './linear-wrapper';
+import SplashScreenGift from '@/assets/images/splash-screen-gift';
+import { textColors } from '@/constants/Colors';
+import SplashScreenDots from '@/assets/images/splash-screen-dots';
 
 export default function CustomSplashScreen() {
   return (

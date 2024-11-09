@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {View, Animated} from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
+import LinearGradient from 'react-native-linear-gradient';
 
 const SkeletonLoader = ({width, height}) => {
   const translateX = useRef(new Animated.Value(-width)).current;

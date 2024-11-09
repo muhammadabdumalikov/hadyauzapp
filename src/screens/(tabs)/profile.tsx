@@ -8,80 +8,127 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
-  Switch,
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import SimpleLineIcons from 'react-native-vector-icons/Ionicons';
 import {ONBOARDING_KEY} from '../onboarding-screens';
 import {MyRefType} from '../search-screen';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { LinearWrapper } from '@/components/app-components/linear-wrapper';
-import { UrbanistMediumText, UrbanistSemiboldText, UrbanistBoldText } from '@/components/StyledText';
-import { textColors } from '@/constants/Colors';
-import { removeData } from '@/storage/store';
+import {LinearWrapper} from '@/components/app-components/linear-wrapper';
+import {
+  UrbanistMediumText,
+  UrbanistSemiboldText,
+  UrbanistBoldText,
+} from '@/components/StyledText';
+import {textColors} from '@/constants/Colors';
+import {removeData} from '@/storage/store';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {ProfileMenuIconInactive} from '@/assets/icons/profile_menu';
+import {ProfileMenuAddressIcon} from '@/assets/icons/profile_address';
+import {ProfileMenuOrdersIcon} from '@/assets/icons/profile_orders';
+import {ProfileMenuPaymentMethodsIcon} from '@/assets/icons/profile_payment_methods';
+import {ProfileMenuSecurityIcon} from '@/assets/icons/profile_security';
+import {ProfileMenuCredentialIcon} from '@/assets/icons/profile_credentials';
+import {ProfileMenuInformationIcon} from '@/assets/icons/profile_information';
+import {InviteFriends} from '@/assets/icons/invite_friends';
+import {LogoutIcon} from '@/assets/icons/logout';
+import {PersonIcon} from '@/assets/icons/person';
+import Switch from '@/components/app-components/switch';
 
 const profileData = [
   {
-    icon: <Ionicons name="person-outline" size={24} color="black" />,
+    icon: <PersonIcon width={26} height={26} color={textColors.navyBlack} />,
     label: 'Редактировать профиль',
     screen: 'screens/edit-profile-screen',
   },
   {
-    icon: <SimpleLineIcons name="location-pin" size={24} color="black" />,
+    icon: (
+      <ProfileMenuAddressIcon
+        width={26}
+        height={26}
+        color={textColors.navyBlack}
+      />
+    ),
     label: 'Адрес доставки',
     screen: 'screens/adresses-screen',
   },
   {
-    icon: <Ionicons name="bag-handle-outline" size={24} color="black" />,
+    icon: (
+      <ProfileMenuOrdersIcon
+        width={26}
+        height={26}
+        color={textColors.navyBlack}
+      />
+    ),
     label: 'Заказы',
     screen: 'screens/order',
   },
+  // {
+  //   icon: <Ionicons name="notifications-outline" size={24} color="black" />,
+  //   label: 'Уведомление',
+  //   screen: 'screens/notification-settings-screen',
+  // },
   {
-    icon: <Ionicons name="notifications-outline" size={24} color="black" />,
-    label: 'Уведомление',
-    screen: 'screens/notification-settings-screen',
-  },
-  {
-    icon: <Ionicons name="card-outline" size={24} color="black" />,
+    icon: (
+      <ProfileMenuPaymentMethodsIcon
+        width={26}
+        height={26}
+        color={textColors.navyBlack}
+      />
+    ),
     label: 'Способы оплаты',
     screen: 'screens/payment-methods-screen',
   },
   {
-    icon: <Ionicons name="shield-outline" size={24} color="black" />,
+    icon: (
+      <ProfileMenuSecurityIcon
+        width={26}
+        height={26}
+        color={textColors.navyBlack}
+      />
+    ),
     label: 'Безопасность',
     screen: 'screens/security-screen',
   },
   {
-    icon: <Ionicons name="language-outline" size={24} color="black" />,
+    icon: <Ionicons name="language-outline" size={26} color="black" />,
     label: 'Язык',
     value: 'Русский (RU)',
     screen: 'screens/adresses-screen',
   },
   {
-    icon: <Ionicons name="moon-outline" size={24} color="black" />,
+    icon: <Ionicons name="moon-outline" size={26} color="black" />,
     label: 'Темный режим',
     switch: true,
   },
   {
-    icon: <Ionicons name="lock-closed-outline" size={24} color="black" />,
+    icon: (
+      <ProfileMenuCredentialIcon
+        width={26}
+        height={26}
+        color={textColors.navyBlack}
+      />
+    ),
     label: 'политика конфиденциальности',
     screen: 'screens/adresses-screen',
   },
   {
-    icon: <Ionicons name="help-circle-outline" size={24} color="black" />,
+    icon: (
+      <ProfileMenuInformationIcon
+        width={26}
+        height={26}
+        color={textColors.navyBlack}
+      />
+    ),
     label: 'Справочный центр',
     screen: 'screens/adresses-screen',
   },
   {
-    icon: <Ionicons name="people-outline" size={24} color="black" />,
+    icon: <InviteFriends width={26} height={26} color={textColors.navyBlack} />,
     label: 'Приглашайте друзей',
     screen: 'screens/adresses-screen',
   },
   {
-    icon: (
-      <Ionicons name="exit-outline" size={24} color={textColors.redVelvet} />
-    ),
+    icon: <LogoutIcon width={26} height={26} color={textColors.navyBlack} />,
     label: 'Выйти',
     exit: true,
   },
@@ -156,7 +203,9 @@ export default function ProfileScreen({navigation}) {
                 style={styles.profileImage}
               />
               {/* <Link href="screens/welcome-screen" asChild> */}
-              <Pressable style={styles.editIconBox}>
+              <Pressable
+                style={styles.editIconBox}
+                onPress={() => navigation.navigate('welcome-screen')}>
                 <View style={styles.editIcon}>
                   <FontAwesome name="pencil" size={18} color="white" />
                 </View>
@@ -231,14 +280,13 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     height: 50,
     width: '100%',
-    paddingHorizontal: 5,
+    paddingHorizontal: 16,
     marginVertical: 12,
   },
   headerRight: {
     padding: 4,
   },
   headerText: {
-    marginLeft: 16,
     fontSize: 24,
     fontWeight: '700',
   },

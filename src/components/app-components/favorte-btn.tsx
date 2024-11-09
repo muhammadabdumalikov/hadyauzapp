@@ -1,13 +1,10 @@
-import {
-  FavoriteHeartWhiteSvg,
-  FavoriteHeartSvg,
-} from '@/assets/icons/favorite-heart';
 import {textColors} from '@/constants/Colors';
 import {IProduct} from '@/constants/data';
 import {compareProps} from '@/utils/compare-props';
 import {memo, useRef, useState} from 'react';
 import {Pressable, Animated, StyleSheet} from 'react-native';
-import {LinearGradient} from 'react-native-svg';
+import LinearGradient from 'react-native-linear-gradient';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export type Props = {
   product: IProduct;
@@ -47,13 +44,9 @@ const FavoriteHeartBtnComponent = ({product}: Props) => {
         }}>
         <Animated.View style={{opacity: fadeAnimation}}>
           {favorite ? (
-            <FavoriteHeartWhiteSvg width={18} height={18} />
+            <AntDesign size={17} name="heart" color={textColors.pureWhite} />
           ) : (
-            <FavoriteHeartSvg
-              width={18}
-              height={18}
-              color={textColors.pureWhite}
-            />
+            <AntDesign size={17} name="hearto" color={textColors.pureWhite} />
           )}
         </Animated.View>
       </LinearGradient>

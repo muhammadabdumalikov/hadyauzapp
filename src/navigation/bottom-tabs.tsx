@@ -16,11 +16,20 @@ import {BellIcon} from '../assets/icons/bell';
 import {useClientOnlyValue} from '../components/useClientOnlyValue';
 import HomeScreen from '../screens/(tabs)/home';
 import IdeasScreen from '../screens/(tabs)/ideas';
+import {CatalogSvg} from '@/assets/icons/catalog';
+import {OrderMenuIcon, OrderMenuIconInactive} from '@/assets/icons/order_menu';
+import {
+  ProfileMenuIcon,
+  ProfileMenuIconInactive,
+} from '@/assets/icons/profile_menu';
+import CatalogScreen from '@/screens/(tabs)/catalog';
+import CartBagScreen from '@/screens/(tabs)/cart-bag';
+import ProfileScreen from '@/screens/(tabs)/profile';
 
 const Tab = createBottomTabNavigator();
 
 const TabbarBackground = () => (
-  <BlurView blurAmount={20} style={styles.blurView} />
+  <BlurView blurAmount={20} style={styles.blurView} blurType="light"/>
 );
 
 const TabbarIcon = ({focused}: {focused: boolean}) =>
@@ -49,6 +58,27 @@ const IdesTabbarIcon = ({focused}: {focused: boolean}) =>
     <IdeasIconInactive width={28} height={28} />
   );
 
+const CatalogTabbarIcon = ({focused}: {focused: boolean}) => (
+  <CatalogSvg
+    stroke={focused ? textColors.purple : textColors.bottomBarInactiveIconColor}
+    fill={focused ? textColors.purple : 'none'}
+  />
+);
+
+const CartBagTabbarIcon = ({focused}: {focused: boolean}) =>
+  focused ? (
+    <OrderMenuIcon width={24} height={24} />
+  ) : (
+    <OrderMenuIconInactive width={28} height={28} />
+  );
+
+const ProfileTabbarIcon = ({focused}: {focused: boolean}) =>
+  focused ? (
+    <ProfileMenuIcon width={24} height={24} />
+  ) : (
+      <ProfileMenuIconInactive width={28} height={28} color={ textColors.grey6 } />
+  );
+
 export default function TabNavigator() {
   const colorScheme = useColorScheme();
 
@@ -65,7 +95,6 @@ export default function TabNavigator() {
           backgroundColor: textColors.bottomBarBlur,
           borderTopRightRadius: 16,
           borderTopLeftRadius: 16,
-          overflow: 'hidden',
         },
         tabBarItemStyle: {
           paddingBottom: Platform.OS === 'ios' ? 5 : 15,
@@ -97,46 +126,30 @@ export default function TabNavigator() {
           tabBarIcon: IdesTabbarIcon,
         }}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="catalog"
+        component={CatalogScreen}
         options={{
           title: 'Catalog',
-          tabBarIcon: ({color, focused}) => (
-            <CatalogSvg
-              stroke={
-                focused
-                  ? textColors.purple
-                  : textColors.bottomBarInactiveIconColor
-              }
-              fill={focused ? textColors.purple : 'none'}
-            />
-          ),
+          tabBarIcon: CatalogTabbarIcon,
         }}
       />
       <Tab.Screen
         name="cart-bag"
+        component={CartBagScreen}
         options={{
           title: 'Cart',
-          tabBarIcon: ({color, focused}) =>
-            focused ? (
-              <OrderMenuIcon width={24} height={24} />
-            ) : (
-              <OrderMenuIconInactive width={28} height={28} />
-            ),
+          tabBarIcon: CartBagTabbarIcon,
         }}
       />
       <Tab.Screen
+        component={ProfileScreen}
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({color, focused}) =>
-            focused ? (
-              <ProfileMenuIcon width={24} height={24} />
-            ) : (
-              <ProfileMenuIconInactive width={28} height={28} />
-            ),
+          tabBarIcon: ProfileTabbarIcon,
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 }

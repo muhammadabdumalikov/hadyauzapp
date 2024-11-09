@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import {Easing} from 'react-native-reanimated';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CustomHeader} from '../components/app-components/go-back';
 import Toast, {MyToastRefType} from '../components/app-components/toast/toast';
 import {
@@ -21,6 +20,7 @@ import {MotiView} from 'moti';
 import {isNumber} from 'lodash';
 import {useMutation} from '@tanstack/react-query';
 import {confirmOtp} from '../service/api/auth';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {width} = Dimensions.get('window');
 
