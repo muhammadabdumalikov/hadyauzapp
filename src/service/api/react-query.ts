@@ -1,9 +1,10 @@
+import storage from '@/storage/storage';
 import NetInfo from '@react-native-community/netinfo';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-import { QueryClient, onlineManager, focusManager } from '@tanstack/react-query';
+import { QueryClient, focusManager } from '@tanstack/react-query';
+import { onlineManager } from '@tanstack/react-query';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 import { AppState, AppStateStatus } from 'react-native';
-import storage from "./storage"
 
 
 const queryClient = new QueryClient({
@@ -12,7 +13,6 @@ const queryClient = new QueryClient({
       refetchOnReconnect: true,
       refetchOnWindowFocus: true,
       retry: 3,
-      staleTime: 5 * 60 * 1000, // 5 minutes
       retryDelay(failureCount, error) {
         return failureCount * 1000;
       },
@@ -28,10 +28,10 @@ const queryClient = new QueryClient({
 
 const mmkvStorage = {
   setItem: (key: string, value: string) => {
-    stosrage.setItem(key, value);
+    storage.setItem(key, value);
   },
   getItem: (key: string) => {
-    const value = storage.getItem(key);
+    const value = storage.getString(key);
     return value === undefined ? null : value;
   },
   removeItem: (key: string) => {

@@ -11,6 +11,8 @@ import YaMap from 'react-native-yamap';
 import SplashScreen from 'react-native-splash-screen';
 import CustomSplashScreen from './components/app-components/splash-screen';
 import * as Font from 'expo-font'; // For loading fonts (if using)
+import queryClient from './service/api/react-query';
+import {QueryClientProvider} from '@tanstack/react-query';
 
 YaMap.init('8e3ed980-d7b6-4dcc-ad54-7d06df299397');
 
@@ -56,10 +58,12 @@ function App(): React.JSX.Element {
     <SafeAreaProvider>
       <GestureHandlerRootView style={{flex: 1}}>
         {/* <SafeAreaView style={backgroundStyle}> */}
-        <ThemeProvider
-          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <Navigation />
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider
+            value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Navigation />
+          </ThemeProvider>
+        </QueryClientProvider>
         {/* </SafeAreaView> */}
       </GestureHandlerRootView>
     </SafeAreaProvider>

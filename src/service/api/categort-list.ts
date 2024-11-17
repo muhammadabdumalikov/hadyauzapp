@@ -1,15 +1,40 @@
 export const fetchCategories = async () => {
-  
   const url =
     'http://45.10.154.95:4444/api/category/parents';
   const options = {
     method: 'POST',
     headers: {
-      'content-type': 'application/json'
+      'content-type': 'application/json',
     },
     body: JSON.stringify({
       page: 1,
-      per_page: 10
+      per_page: 10,
+    }),
+  };
+
+  const res = await fetch(url, options);
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch movies');
+  }
+
+  const json = await res.json();
+
+  return json;
+};
+
+export const fetchProductsForHome = async () => {
+  const url =
+    'http://192.168.100.64:3001/api/admin/products/get-by-idea';
+  const options = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      page: 1,
+      per_page: 10,
+      idea_id: '67324ebc61ebde5bae14986d',
     }),
   };
 

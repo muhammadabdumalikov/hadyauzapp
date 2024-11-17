@@ -2,7 +2,12 @@ import {textColors} from '@/constants/Colors';
 import {IProduct} from '@/constants/data';
 import {compareProps} from '@/utils/compare-props';
 import React, {memo} from 'react';
-import {Pressable, View, ImageBackground, StyleSheet} from 'react-native';
+import {
+  Pressable,
+  View,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import {
   UrbanistBoldText,
   UrbanistMediumText,
@@ -22,16 +27,25 @@ const ProductCardComponent = function ({product}: Props) {
   const openCardDetailScreen = () => {
     navigation.navigate('product-detail-screen');
   };
+  console.log(
+    product.id,
+    `http://37.60.231.13:9000/files/${product.files[0].image190x190}`,
+  );
 
   return (
     // <Link href={{pathname: '/screens/product-detail'}} asChild>
     <Pressable style={styles.box} onPress={openCardDetailScreen}>
       <View style={[styles.image]}>
-        <ImageBackground style={styles.imageBox} source={product.image} />
+        <Image
+          style={styles.imageBox}
+          source={{
+            uri: `https://media.istockphoto.com/id/639836148/photo/expensive-mens-watches.jpg?s=612x612&w=0&k=20&c=c7XgFJE59ukl_z1t2joCv3yk2Wjy2r_GEpnyWOR4v5g=`,
+          }}
+        />
       </View>
       <View style={styles.cardFooter}>
         <UrbanistBoldText numberOfLines={2} style={styles.productTitle}>
-          {product.name}
+          {product.name_uz}
         </UrbanistBoldText>
 
         <View style={styles.details}>
@@ -78,7 +92,7 @@ const styles = StyleSheet.create({
     height: 182,
     borderRadius: 24,
     overflow: 'hidden',
-    backgroundColor: textColors.softPurple,
+    // backgroundColor: textColors.softPurple,
   },
   imageBox: {
     flex: 1,

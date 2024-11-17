@@ -5,6 +5,8 @@ import {
   SafeAreaView,
   SectionList,
   StyleSheet,
+  Text,
+  ActivityIndicator,
 } from 'react-native';
 import {FlashList} from '@shopify/flash-list';
 import {BellIcon} from '@/assets/icons/bell';
@@ -18,11 +20,13 @@ import {SeeAllHeader} from '@/components/app-components/see-all-header';
 import {CategoryScrollView} from '@/components/app-components/selected-categories-scroll';
 import {UrbanistMediumText} from '@/components/StyledText';
 import {textColors} from '@/constants/Colors';
-import {DATA, PRODUCT_DATA} from '@/constants/data';
+import {DATA, IProduct, PRODUCT_DATA} from '@/constants/data';
 // import {FeatherIcon, MaterialCommunityIconIcon} from '@/vector-icons/glyphmaps';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BlurView} from '@react-native-community/blur';
+import {fetchProductsForHome} from '@/service/api/categort-list';
+import {useQuery} from '@tanstack/react-query';
 
 const ListHeaderComponent = React.memo(
   ({
@@ -64,6 +68,18 @@ const ListHeaderComponent = React.memo(
 );
 
 export default function HomeScreen({navigation}) {
+  const {data, error, isLoading} = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProductsForHome,
+  });
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
+  if (error) {
+    return <Text style={{marginTop: 100}}>Error: {error.message}</Text>;
+  }
+
   const subCategories = ['Все', 'Женщинам', 'Мужчинам', 'Детям', 'Женщинамm'];
 
   const handleCategoryOnPress = () => {};
@@ -84,7 +100,7 @@ export default function HomeScreen({navigation}) {
     ({section}) => (
       <View style={{flex: 1}}>
         <FlashList
-          data={PRODUCT_DATA}
+          data={(data as unknown as IProduct[]) || []} // Assuming data structure
           numColumns={2}
           contentContainerStyle={{
             paddingHorizontal: 8,
