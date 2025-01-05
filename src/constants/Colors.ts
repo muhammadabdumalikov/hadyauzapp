@@ -22,7 +22,7 @@ export const textColors = {
   softPurple: '#f5ecff',
   bottomBarInactiveIconColor: 'rgba(158, 158, 158, 1)',
   bottomBarBlur: 'rgba(255, 255, 255, 0.8)',
-  backgroundBlur: 'rgba(255, 255, 255, 0.9)',
+  backgroundBlur: 'rgba(255, 255, 255, 0.85)',
 }
 
 const tintColorLight = textColors.navyBlack;

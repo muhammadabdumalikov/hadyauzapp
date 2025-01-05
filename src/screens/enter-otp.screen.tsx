@@ -41,7 +41,7 @@ type PassCodeKeyboardProps = {
   onPress: (key: Keys) => void;
 };
 
-const PassCodeKeyboard = ({onPress}: PassCodeKeyboardProps) => {
+const PassCodeKeyboard = React.memo(({onPress}: PassCodeKeyboardProps) => {
   return (
     <View
       style={{
@@ -50,6 +50,7 @@ const PassCodeKeyboard = ({onPress}: PassCodeKeyboardProps) => {
         alignItems: 'center',
         alignSelf: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 16,
       }}>
       {keys.map(key => {
         if (key === 'space') {
@@ -83,11 +84,11 @@ const PassCodeKeyboard = ({onPress}: PassCodeKeyboardProps) => {
       })}
     </View>
   );
-};
+});
 
 const inputAnimationDelays = [400, 300, 200, 100];
 
-const PassCode = ({passcode, isValid}: PassCodeProps) => {
+const PassCode = React.memo(({passcode, isValid}: PassCodeProps) => {
   const shakeAnimation = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
@@ -115,7 +116,7 @@ const PassCode = ({passcode, isValid}: PassCodeProps) => {
         }),
       ]).start();
     }
-  }, [isValid, passcode, shakeAnimation]);
+  }, [ isValid, passcode ]);
 
   return (
     <Animated.View
@@ -184,9 +185,9 @@ const PassCode = ({passcode, isValid}: PassCodeProps) => {
       })}
     </Animated.View>
   );
-};
+});
 
-export function PassCodeV1({navigation, route}) {
+export function EnterOtpScreen({navigation, route}) {
   const [passcode, setPasscode] = React.useState<Keys[]>([]);
   const [isValid, setIsValid] = React.useState<boolean>(false);
   const {phoneNumber} = route.params;
@@ -195,11 +196,11 @@ export function PassCodeV1({navigation, route}) {
   const mutation = useMutation({
     mutationFn: confirmOtp,
     onSuccess: data => {
-      console.log(data);
-
       if (data?.success) {
         setIsValid(true);
-        navigation.replace('(tabs)');
+        setTimeout(() => {
+          navigation.navigate('tab-navigator');
+        }, 1000);
       }
     },
     onError: error => {
@@ -218,7 +219,7 @@ export function PassCodeV1({navigation, route}) {
         otpCode: passcode.join(''),
       });
     }
-  }, [mutation, passcode, phoneNumber]);
+  }, [passcode, phoneNumber]);
 
   return (
     <SafeAreaView style={{flex: 1, paddingHorizontal: 24}}>

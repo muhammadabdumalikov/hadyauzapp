@@ -7,6 +7,7 @@ import { SectionHeader } from '@/components/app-components/see-all-header';
 import { UrbanistBoldText } from '@/components/StyledText';
 import { textColors } from '@/constants/Colors';
 import { IProduct } from '@/constants/data';
+import { BlurView } from '@react-native-community/blur';
 import React, {useCallback} from 'react';
 import {
   View,
@@ -174,21 +175,26 @@ export default function IdeasScreen() {
 
   return DATA.length > 0 ? (
     <SafeAreaView style={styles.flatlistStyleView}>
-      <View style={styles.header}>
-        <UrbanistBoldText style={styles.headerText}>Заказы</UrbanistBoldText>
-        <View style={{flexDirection: 'row'}}>
-          <Pressable style={styles.searchBoxElement}>
-            <BellIcon width={30} height={30} color={textColors.navyBlack} />
-          </Pressable>
-          <Pressable style={styles.searchBoxElement}>
-            <WishlistHeartSvg
-              width={30}
-              height={30}
-              color={textColors.navyBlack}
-            />
-          </Pressable>
+      <BlurView
+        style={{backgroundColor: textColors.backgroundBlur}}
+        blurAmount={20}
+        blurType="light">
+        <View style={styles.header}>
+          <UrbanistBoldText style={styles.headerText}>Заказы</UrbanistBoldText>
+          <View style={{flexDirection: 'row'}}>
+            <Pressable style={styles.searchBoxElement}>
+              <BellIcon width={30} height={30} color={textColors.navyBlack} />
+            </Pressable>
+            <Pressable style={styles.searchBoxElement}>
+              <WishlistHeartSvg
+                width={30}
+                height={30}
+                color={textColors.navyBlack}
+              />
+            </Pressable>
+          </View>
         </View>
-      </View>
+      </BlurView>
 
       <SectionList
         ListHeaderComponent={ListHeaderComponent}

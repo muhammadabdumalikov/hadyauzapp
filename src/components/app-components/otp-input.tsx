@@ -25,7 +25,6 @@ export function OTPInput({
   config,
 }: OTPInputProps) {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  console.log(width, height);
 
   const styles = StyleSheet.create({
     container: {

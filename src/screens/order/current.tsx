@@ -1,5 +1,5 @@
 import {EmptySvg} from '@/assets/images/empty';
-import {ProductCardFullScreenForCurrent} from '@/components/app-components/product-card-full-screen copy';
+import {ProductCardFullScreenForCurrent} from '@/components/app-components/product-card-full-screen';
 import {UrbanistBoldText, UrbanistMediumText} from '@/components/StyledText';
 import {textColors} from '@/constants/Colors';
 import {FlatList, StyleSheet, View} from 'react-native';

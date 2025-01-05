@@ -22,7 +22,6 @@ import {
 import {textColors} from '@/constants/Colors';
 import {removeData} from '@/storage/store';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {ProfileMenuIconInactive} from '@/assets/icons/profile_menu';
 import {ProfileMenuAddressIcon} from '@/assets/icons/profile_address';
 import {ProfileMenuOrdersIcon} from '@/assets/icons/profile_orders';
 import {ProfileMenuPaymentMethodsIcon} from '@/assets/icons/profile_payment_methods';
@@ -38,7 +37,7 @@ const profileData = [
   {
     icon: <PersonIcon width={26} height={26} color={textColors.navyBlack} />,
     label: 'Редактировать профиль',
-    screen: 'screens/edit-profile-screen',
+    screen: 'edit-profile-screen',
   },
   {
     icon: (
@@ -49,7 +48,7 @@ const profileData = [
       />
     ),
     label: 'Адрес доставки',
-    screen: 'screens/adresses-screen',
+    screen: 'adresses-screen',
   },
   {
     icon: (
@@ -60,7 +59,7 @@ const profileData = [
       />
     ),
     label: 'Заказы',
-    screen: 'screens/order',
+    screen: 'orders-screen',
   },
   // {
   //   icon: <Ionicons name="notifications-outline" size={24} color="black" />,
@@ -138,6 +137,10 @@ export default function ProfileScreen({navigation}) {
   const [darkMode, setDarkMode] = React.useState(false);
   const refRBSheet = useRef<MyRefType>(null);
 
+  const handleOnProfileMenuClick = (screen) => {
+    navigation.navigate(screen);
+};
+
   const openBottomSheet = () => {
     refRBSheet.current?.open();
   };
@@ -165,7 +168,9 @@ export default function ProfileScreen({navigation}) {
       );
     } else if (item?.screen) {
       return (
-        <Pressable style={styles.optionRow}>
+        <Pressable
+          style={styles.optionRow}
+          onPress={() => handleOnProfileMenuClick(item.screen)}>
           {item.icon}
           <UrbanistMediumText style={styles.optionText}>
             {item.label}

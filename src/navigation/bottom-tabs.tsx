@@ -29,7 +29,7 @@ import ProfileScreen from '@/screens/(tabs)/profile';
 const Tab = createBottomTabNavigator();
 
 const TabbarBackground = () => (
-  <BlurView blurAmount={20} style={styles.blurView} blurType="light"/>
+  <BlurView blurAmount={15} style={styles.blurView} blurType="light"/>
 );
 
 const TabbarIcon = ({focused}: {focused: boolean}) =>

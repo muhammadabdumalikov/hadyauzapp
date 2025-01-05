@@ -8,37 +8,37 @@ const data = [
   {
     id: '1',
     title: 'День рождения',
-    image: require('@/assets/images/surprise-box.png'),
+    image: require('@/assets/images/sumka.png'),
   },
   {
     id: '2',
     title: 'Проф. праздники',
-    image: require('@/assets/images/surprise-box.png'),
+    image: require('@/assets/images/sumka.png'),
   },
   {
     id: '3',
     title: 'Подарочные наборы',
-    image: require('@/assets/images/surprise-box.png'),
+    image: require('@/assets/images/sumka.png'),
   },
   {
     id: '4',
     title: 'День учителя',
-    image: require('@/assets/images/surprise-box.png'),
+    image: require('@/assets/images/sumka.png'),
   },
   {
     id: '5',
     title: 'Юбилей',
-    image: require('@/assets/images/surprise-box.png'),
+    image: require('@/assets/images/sumka.png'),
   },
   {
     id: '6',
     title: 'Свадьба',
-    image: require('@/assets/images/surprise-box.png'),
+    image: require('@/assets/images/sumka.png'),
   },
   {
     id: '7',
     title: 'Подарочные наборы',
-    image: require('@/assets/images/surprise-box.png'),
+    image: require('@/assets/images/sumka.png'),
   },
 ];
 

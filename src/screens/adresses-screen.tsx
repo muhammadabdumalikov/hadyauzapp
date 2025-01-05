@@ -6,6 +6,7 @@ import {
   Pressable,
   Text,
   StyleSheet,
+  Dimensions,
 } from 'react-native';
 import AddressLocation from '../assets/images/address-location';
 import {CustomHeader} from '../components/app-components/go-back';
@@ -18,8 +19,24 @@ import {
 import {textColors} from '../constants/Colors';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
+// Fixed sizes
+const ICON_WIDTH = 52;
+const ICON_MARGIN = 10;
+const EDIT_ICON_WIDTH = 36;
+const HORIZONTAL_PADDING = 15;
+const CONTAINER_PADDING = 16;
+
+// Calculate dynamic width for text container
+const TEXT_CONTAINER_WIDTH =
+  SCREEN_WIDTH -
+  (ICON_WIDTH +
+    ICON_MARGIN +
+    EDIT_ICON_WIDTH +
+    HORIZONTAL_PADDING * 2 +
+    CONTAINER_PADDING * 2);
+
 export const AddressSelection = () => {
-  // Sample data for addresses
   const addresses = [
     {
       id: '1',
@@ -47,111 +64,86 @@ export const AddressSelection = () => {
     },
   ];
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <CustomHeader title="Адрес доставки" />
-      <ScrollView>
-        {addresses?.map(item => {
-          return item.isDefault ? (
-            <LinearWrapper style={[styles.addressCard]} key={item.id}>
-              <View style={styles.addressInfo}>
-                <AddressLocation width={52} height={52} />
-                <View style={styles.textContainer}>
-                  <View style={styles.titleRow}>
-                    <UrbanistBoldText
-                      style={[
-                        styles.title,
-                        item.isDefault && {color: textColors.pureWhite},
-                      ]}>
-                      {item.title}
-                    </UrbanistBoldText>
-                    {item.isDefault && (
-                      <UrbanistSemiboldText style={styles.defaultLabel}>
-                        По умолчанию
-                      </UrbanistSemiboldText>
-                    )}
-                  </View>
-                  <UrbanistMediumText
-                    numberOfLines={1}
-                    style={[
-                      styles.addressText,
-                      item.isDefault && {color: textColors.grey3},
-                    ]}>
-                    {item.address}
-                  </UrbanistMediumText>
-                </View>
-              </View>
-              <Pressable style={styles.editIcon}>
-                <FontAwesome6
-                  name="pencil"
-                  size={16}
-                  color={item.isDefault ? textColors.pureWhite : '#000'}
-                />
-              </Pressable>
-            </LinearWrapper>
-          ) : (
-            <View style={[styles.addressCard]} key={item.id}>
-              <View style={styles.addressInfo}>
-                <AddressLocation width={52} height={52} />
-                <View style={styles.textContainer}>
-                  <View style={styles.titleRow}>
-                    <UrbanistBoldText
-                      style={[
-                        styles.title,
-                        item.isDefault && {color: textColors.pureWhite},
-                      ]}>
-                      {item.title}
-                    </UrbanistBoldText>
-                    {item.isDefault && (
-                      <UrbanistSemiboldText style={styles.defaultLabel}>
-                        По умолчанию
-                      </UrbanistSemiboldText>
-                    )}
-                  </View>
-                  <UrbanistMediumText
-                    numberOfLines={1}
-                    style={[
-                      styles.addressText,
-                      item.isDefault && {color: textColors.grey3},
-                    ]}>
-                    {item.address}
-                  </UrbanistMediumText>
-                </View>
-              </View>
-              <Pressable style={styles.editIcon}>
-                <FontAwesome6
-                  name="pencil"
-                  size={16}
-                  color={item.isDefault ? textColors.pureWhite : '#000'}
-                />
-              </Pressable>
+  const renderAddressCard = item => {
+    const CardWrapper = item.isDefault ? LinearWrapper : View;
+
+    return (
+      <CardWrapper style={[styles.addressCard]} key={item.id}>
+        <View style={styles.addressInfo}>
+          <AddressLocation width={ICON_WIDTH} height={ICON_WIDTH} />
+          <View style={styles.textContainer}>
+            <View style={styles.titleRow}>
+              <UrbanistBoldText
+                style={[
+                  styles.title,
+                  item.isDefault && {color: textColors.pureWhite},
+                ]}>
+                {item.title}
+              </UrbanistBoldText>
+              {item.isDefault && (
+                <UrbanistSemiboldText style={styles.defaultLabel}>
+                  По умолчанию
+                </UrbanistSemiboldText>
+              )}
             </View>
-          );
-        })}
-        {/* <Link href="/screens/yandex-map-screen" asChild> */}
-        <Pressable style={styles.addButton}>
-          <Text style={styles.addButtonText}>Добавить новый адрес</Text>
+            <UrbanistMediumText
+              numberOfLines={1}
+              style={[
+                styles.addressText,
+                item.isDefault && {color: textColors.grey3},
+              ]}>
+              {item.address}
+            </UrbanistMediumText>
+          </View>
+        </View>
+        <Pressable style={styles.editIcon}>
+          <FontAwesome6
+            name="pencil"
+            size={16}
+            color={item.isDefault ? textColors.pureWhite : '#000'}
+          />
         </Pressable>
-      </ScrollView>
-    </SafeAreaView>
+      </CardWrapper>
+    );
+  };
+
+  return (
+    <View style={styles.mainContainer}>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <CustomHeader title="Адрес доставки" />
+          <ScrollView style={styles.scrollView}>
+            {addresses?.map(renderAddressCard)}
+            <Pressable style={styles.addButton}>
+              <Text style={styles.addButtonText}>Добавить новый адрес</Text>
+            </Pressable>
+          </ScrollView>
+        </View>
+      </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     backgroundColor: textColors.pureWhite,
-    paddingHorizontal: 16,
   },
-  headerText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  safeArea: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  scrollView: {
+    flex: 1,
+    paddingHorizontal: CONTAINER_PADDING,
   },
   addressCard: {
     backgroundColor: textColors.grey1,
     height: 85,
-    padding: 15,
+    padding: HORIZONTAL_PADDING,
     borderRadius: 24,
     marginBottom: 15,
     flexDirection: 'row',
@@ -163,8 +155,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textContainer: {
-    width: 260,
-    marginLeft: 10,
+    width: TEXT_CONTAINER_WIDTH,
+    marginLeft: ICON_MARGIN,
   },
   titleRow: {
     height: 24,
@@ -194,6 +186,8 @@ const styles = StyleSheet.create({
   },
   editIcon: {
     padding: 10,
+    width: EDIT_ICON_WIDTH,
+    alignItems: 'center',
   },
   addButton: {
     backgroundColor: textColors.grey3,
@@ -201,6 +195,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 100,
     alignItems: 'center',
+    marginBottom: 20,
   },
   addButtonText: {
     fontSize: 16,

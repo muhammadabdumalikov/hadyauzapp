@@ -1,6 +1,6 @@
-import { MMKVLoader } from 'react-native-mmkv-storage';
+import { MMKV } from 'react-native-mmkv';
 
-const storage = new MMKVLoader().initialize();
+const storage = new MMKV();
 
 export default storage;
 

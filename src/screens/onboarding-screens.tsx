@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, StyleSheet, Dimensions, Text, Pressable, ImageBackground} from 'react-native';
+import {View, StyleSheet, Dimensions, Text, Pressable} from 'react-native';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -10,11 +10,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import {LinearWrapper} from '../components/app-components/linear-wrapper';
 import {saveData} from '../storage/store';
-import {UrbanistBlackText, UrbanistBoldText, UrbanistSemiboldText} from '../components/StyledText';
+import {UrbanistBoldText} from '../components/StyledText';
 import {textColors} from '../constants/Colors';
 import {useNavigation} from '@react-navigation/native';
-import {BlurView} from '@react-native-community/blur';
-import LinearGradient from 'react-native-linear-gradient';
 
 const {width} = Dimensions.get('screen');
 
@@ -123,32 +121,14 @@ export function OnboardingCarousel() {
       });
     } else {
       saveData(ONBOARDING_KEY, true);
-      // navigation.navigate('screens/enter-phone-login.screen');
+      navigation.navigate('phone-login');
       // router.replace('(tabs)');
     }
   };
 
   return (
-    <LinearWrapper
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <ImageBackground
-        style={styles.bgContainer}
-        source={require('@/assets/images/welcome.png')}>
-        <LinearGradient
-          colors={['rgba(58, 58, 58, 0)', 'rgba(44, 44, 44, 1)']}
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}} // From top to bottom
-          style={styles.gradientBox}>
-          <UrbanistBoldText style={styles.welcome}>
-            Добро пожаловать в 👋
-          </UrbanistBoldText>
-          <UrbanistBlackText style={styles.appname}>Hadya</UrbanistBlackText>
-          <UrbanistSemiboldText style={styles.description}>
-            Лучшее приложение века для покупки подарков!
-          </UrbanistSemiboldText>
-        </LinearGradient>
-      </ImageBackground>
-      <BlurView style={styles.container} blurAmount={25} blurType="light">
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.container}>
         <Animated.FlatList
           ref={flatListRef}
           data={data}
@@ -171,10 +151,8 @@ export function OnboardingCarousel() {
         >
           <LinearWrapper
             style={{
-              marginHorizontal: 16,
-              width: 398,
+              width: width - 32,
               height: 58,
-              position: 'absolute',
               bottom: 48,
               justifyContent: 'center',
               alignItems: 'center',
@@ -190,16 +168,15 @@ export function OnboardingCarousel() {
             </UrbanistBoldText>
           </LinearWrapper>
         </Pressable>
-      </BlurView>
-    </LinearWrapper>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'absolute',
-    zIndex: 2,
+    alignItems: 'center',
   },
   slide: {
     marginTop: 120,

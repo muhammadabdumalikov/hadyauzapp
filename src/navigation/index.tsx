@@ -9,11 +9,13 @@ import ProductDetailScreen from '@/screens/product-detail';
 import {SearchScreen} from '@/screens/search-screen';
 import OrderConfirmationScreen from '@/screens/order-confirmation-screen';
 import {ONBOARDING_KEY, OnboardingCarousel} from '@/screens/onboarding-screens';
-// import { SplashScreen } from 'expo-router';
 import {getData} from '@/storage/store';
 import {WelcomeScreen} from '@/screens/welcome-screen';
-
-// SplashScreen.preventAutoHideAsync();
+import PhoneNumberScreen from '@/screens/enter-phone-login.screen';
+import { EnterOtpScreen } from '@/screens/enter-otp.screen';
+import EditProfileScreen from '@/screens/edit-profile-screen';
+import { AddressSelection } from '@/screens/adresses-screen';
+import {OrdersScreen} from '@/screens/order/orders';
 
 const isOnboardingCompleted =
   getData(ONBOARDING_KEY).then(data => data) || false;
@@ -39,6 +41,11 @@ function MainNavigation() {
         name="order-confirmation-screen"
         component={OrderConfirmationScreen}
       />
+      <Stack.Screen name="phone-login" component={PhoneNumberScreen} />
+      <Stack.Screen name="enter-otp" component={EnterOtpScreen} />
+      <Stack.Screen name="edit-profile-screen" component={EditProfileScreen} />
+      <Stack.Screen name="adresses-screen" component={AddressSelection} />
+      <Stack.Screen name="orders-screen" component={OrdersScreen} />
     </Stack.Navigator>
   );
 }

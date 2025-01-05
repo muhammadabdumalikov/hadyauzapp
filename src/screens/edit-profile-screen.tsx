@@ -8,13 +8,14 @@ import {
   Dimensions,
   Button,
   Modal,
-  Animated,
   SafeAreaView,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
-import {
+import Animated, {
   useSharedValue,
-  withTiming,
   useAnimatedStyle,
+  withTiming,
 } from 'react-native-reanimated';
 import BottomButton from '../components/app-components/bottom-btn';
 import {CustomHeader} from '../components/app-components/go-back';
@@ -23,10 +24,13 @@ import {textColors} from '../constants/Colors';
 import dayjs from 'dayjs';
 import DateTimePicker from 'react-native-ui-datepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {ScrollView} from '@/components/Themed';
 
 const {width} = Dimensions.get('screen');
 
 const selectorWidth = (width - 32) / 2;
+
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 0 : 0;
 
 const EditProfileScreen = () => {
   const [selectedGender, setSelectedGender] = useState('male'); // Initial gender
@@ -51,91 +55,99 @@ const EditProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
-      <CustomHeader title="Редактировать профиль" style={{width: '100%'}} />
+      <CustomHeader title="Редактировать профиль" />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={keyboardVerticalOffset}
+        style={{flex: 1}}>
+        <ScrollView style={{flex: 1, paddingTop: 16}} showsVerticalScrollIndicator={false}>
+          {/* Form Fields */}
+          {/* Full Name */}
+          <UrbanistSemiboldTextInput
+            style={[styles.input, {width: width - 32}]}
+            placeholder="Аббос Хазратов"
+          />
 
-      {/* Form Fields */}
-      {/* Full Name */}
-      <UrbanistSemiboldTextInput
-        style={[styles.input, {width: '100%'}]}
-        placeholder="Аббос Хазратов"
-      />
+          {/* First Name */}
+          <UrbanistSemiboldTextInput
+            style={[styles.input, {width: width - 32}]}
+            placeholder="Аббос"
+          />
 
-      {/* First Name */}
-      <UrbanistSemiboldTextInput
-        style={[styles.input, {width: '100%'}]}
-        placeholder="Аббос"
-      />
+          {/* Date of Birth */}
+          <View style={styles.inputWithIcon}>
+            <UrbanistSemiboldTextInput
+              style={[styles.input, styles.internalInput]}
+              placeholder="15/03/1990"
+              keyboardType="numeric"
+              value={dayjs(date).format('DD/MM/YYYY')}
+            />
+            <Pressable onPress={toggleModal}>
+              <Ionicons name="calendar-outline" size={24} color="black" />
+            </Pressable>
+          </View>
 
-      {/* Date of Birth */}
-      <View style={styles.inputWithIcon}>
-        <UrbanistSemiboldTextInput
-          style={[styles.input, styles.internalInput]}
-          placeholder="15/03/1990"
-          keyboardType="numeric"
-          value={dayjs(date).format('DD/MM/YYYY')}
-        />
-        <Pressable onPress={toggleModal}>
-          <Ionicons name="calendar-outline" size={24} color="black" />
-        </Pressable>
-      </View>
+          {/* Email */}
+          <View style={styles.inputWithIcon}>
+            <UrbanistSemiboldTextInput
+              style={[styles.input, styles.internalInput]}
+              placeholder="abboskhazratov11@gmail.com"
+              keyboardType="email-address"
+            />
+            <Ionicons name="mail-outline" size={24} color="black" />
+          </View>
 
-      {/* Email */}
-      <View style={styles.inputWithIcon}>
-        <UrbanistSemiboldTextInput
-          style={[styles.input, styles.internalInput]}
-          placeholder="abboskhazratov11@gmail.com"
-          keyboardType="email-address"
-        />
-        <Ionicons name="mail-outline" size={24} color="black" />
-      </View>
+          {/* Location */}
+          <View style={styles.inputWithIcon}>
+            <UrbanistSemiboldTextInput
+              style={[styles.input, styles.internalInput]}
+              placeholder="Ташкент"
+            />
+            <Ionicons name="chevron-down-outline" size={24} color="black" />
+          </View>
 
-      {/* Location */}
-      <View style={styles.inputWithIcon}>
-        <UrbanistSemiboldTextInput
-          style={[styles.input, styles.internalInput]}
-          placeholder="Ташкент"
-        />
-        <Ionicons name="chevron-down-outline" size={24} color="black" />
-      </View>
-
-      <View style={styles.genderBackgroundBox}>
-        {/* Animated indicator */}
-        <Animated.View style={[styles.indicator, animatedIndicatorStyle]} />
-        {/* Gender options */}
-        <Pressable onPress={() => handlePress('male')} style={styles.pressable}>
-          <Text
-            style={[
-              styles.text,
-              selectedGender === 'male' && styles.selectedText,
-            ]}>
-            Мужской
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => handlePress('female')}
-          style={styles.pressable}>
-          <Text
-            style={[
-              styles.text,
-              selectedGender === 'female' && styles.selectedText,
-            ]}>
-            Женский
-          </Text>
-        </Pressable>
-      </View>
-      {/* Phone Number */}
-      <View style={styles.inputWithFlag}>
-        <Image
-          style={styles.flag}
-          source={{uri: 'https://flagcdn.com/w320/uz.png'}}
-        />
-        <UrbanistSemiboldTextInput
-          style={styles.phoneInput}
-          placeholder="+998 94 678 97 58"
-        />
-      </View>
-
-      <BottomButton text="Обновить" />
+          <View style={styles.genderBackgroundBox}>
+            {/* Animated indicator */}
+            <Animated.View style={[styles.indicator, animatedIndicatorStyle]} />
+            {/* Gender options */}
+            <Pressable
+              onPress={() => handlePress('male')}
+              style={styles.pressable}>
+              <Text
+                style={[
+                  styles.text,
+                  selectedGender === 'male' && styles.selectedText,
+                ]}>
+                Мужской
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => handlePress('female')}
+              style={styles.pressable}>
+              <Text
+                style={[
+                  styles.text,
+                  selectedGender === 'female' && styles.selectedText,
+                ]}>
+                Женский
+              </Text>
+            </Pressable>
+          </View>
+          {/* Phone Number */}
+          <View style={styles.inputWithFlag}>
+            <Image
+              style={styles.flag}
+              source={{uri: 'https://flagcdn.com/w320/uz.png'}}
+            />
+            <UrbanistSemiboldTextInput
+              style={styles.phoneInput}
+              keyboardType="phone-pad"
+              placeholder="+998 94 678 97 58"
+            />
+          </View>
+        </ScrollView>
+        <BottomButton text="Обновить" />
+      </KeyboardAvoidingView>
 
       <Modal
         transparent={true}
@@ -166,7 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: textColors.pureWhite,
     alignItems: 'center',
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
   },
   header: {
     flexDirection: 'row',
@@ -190,7 +202,7 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   inputWithIcon: {
-    width: '100%',
+    width: width - 32,
     flexDirection: 'row',
     height: 56,
     alignItems: 'center',
@@ -201,7 +213,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   inputWithFlag: {
-    width: '100%',
+    width: width - 32,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f5f5f5',

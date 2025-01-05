@@ -27,10 +27,6 @@ const ProductCardComponent = function ({product}: Props) {
   const openCardDetailScreen = () => {
     navigation.navigate('product-detail-screen');
   };
-  console.log(
-    product.id,
-    `http://37.60.231.13:9000/files/${product.files[0].image190x190}`,
-  );
 
   return (
     // <Link href={{pathname: '/screens/product-detail'}} asChild>
@@ -39,7 +35,10 @@ const ProductCardComponent = function ({product}: Props) {
         <Image
           style={styles.imageBox}
           source={{
-            uri: `https://media.istockphoto.com/id/639836148/photo/expensive-mens-watches.jpg?s=612x612&w=0&k=20&c=c7XgFJE59ukl_z1t2joCv3yk2Wjy2r_GEpnyWOR4v5g=`,
+            uri: `http://37.60.231.13:9000/files/${product.files[0].image190x190}`,
+          }}
+          onError={error => {
+            console.error('Image failed to load:', error.nativeEvent);
           }}
         />
       </View>

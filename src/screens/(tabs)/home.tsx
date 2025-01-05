@@ -1,11 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   Pressable,
   View,
   SafeAreaView,
   SectionList,
   StyleSheet,
-  Text,
   ActivityIndicator,
 } from 'react-native';
 import {FlashList} from '@shopify/flash-list';
@@ -20,13 +19,14 @@ import {SeeAllHeader} from '@/components/app-components/see-all-header';
 import {CategoryScrollView} from '@/components/app-components/selected-categories-scroll';
 import {UrbanistMediumText} from '@/components/StyledText';
 import {textColors} from '@/constants/Colors';
-import {DATA, IProduct, PRODUCT_DATA} from '@/constants/data';
+import {DATA, IProduct} from '@/constants/data';
 // import {FeatherIcon, MaterialCommunityIconIcon} from '@/vector-icons/glyphmaps';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {BlurView} from '@react-native-community/blur';
 import {fetchProductsForHome} from '@/service/api/categort-list';
 import {useQuery} from '@tanstack/react-query';
+import Toast, {MyToastRefType} from '@/components/app-components/toast/toast';
 
 const ListHeaderComponent = React.memo(
   ({
@@ -68,17 +68,32 @@ const ListHeaderComponent = React.memo(
 );
 
 export default function HomeScreen({navigation}) {
+  const toastRef = useRef<MyToastRefType>(null);
+
   const {data, error, isLoading} = useQuery({
     queryKey: ['products'],
     queryFn: fetchProductsForHome,
   });
 
-  if (isLoading) {
-    return <ActivityIndicator size="large" />;
-  }
-  if (error) {
-    return <Text style={{marginTop: 100}}>Error: {error.message}</Text>;
-  }
+  useEffect(() => {
+    if (error && toastRef.current) {
+      toastRef.current.show({
+        type: 'error',
+        text: error.message || 'Something went wrong',
+        duration: 2000,
+      });
+    }
+  }, [error]);
+  // if (error) {
+  //   console.log(toastRef);
+
+  //   toastRef?.current.show({
+  //     type: 'error',
+  //     text: error.message, //'Something went wrong',
+  //     duration: 2000,
+  //   });
+  //   // return <Text style={{marginTop: 100}}>Error: {error.message}</Text>;
+  // }
 
   const subCategories = ['Все', 'Женщинам', 'Мужчинам', 'Детям', 'Женщинамm'];
 
@@ -96,28 +111,31 @@ export default function HomeScreen({navigation}) {
     navigation.navigate('search-screen');
   };
 
-  const renderSection = useCallback(
-    ({section}) => (
-      <View style={{flex: 1}}>
-        <FlashList
-          data={(data as unknown as IProduct[]) || []} // Assuming data structure
-          numColumns={2}
-          contentContainerStyle={{
-            paddingHorizontal: 8,
-            paddingBottom: 80,
-          }}
-          renderItem={({item}) => <ProductCard product={item} key={item.id} />}
-          keyExtractor={item => item.id}
-          estimatedItemSize={300}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    ),
-    [],
+  const renderSection = ({section}) => (
+    <View style={{flex: 1}}>
+      <FlashList
+        data={(data as unknown as IProduct[]) || []}
+        numColumns={2}
+        contentContainerStyle={{
+          paddingHorizontal: 8,
+          paddingBottom: 80,
+        }}
+        renderItem={({item}) => <ProductCard product={item} />}
+        keyExtractor={item => item.id}
+        estimatedItemSize={300}
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
   );
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" style={{flex: 1}} />;
+  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: textColors.pureWhite}}>
+      <Toast ref={toastRef} />
+
       <View style={styles.searchHeader}>
         <Pressable style={{flexGrow: 1}}>
           <LinearWrapper style={styles.locationBox}>
@@ -181,7 +199,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginVertical: 6,
     overflow: 'hidden',
-    maxWidth: '100%',
+    // maxWidth: '100%',
   },
   locationBox: {
     height: 45,

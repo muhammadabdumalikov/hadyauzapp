@@ -30,20 +30,16 @@ export default function PhoneNumberScreen({navigation}) {
   const mutation = useMutation({
     mutationFn: loginClient,
     onSuccess: data => {
-      console.log(data);
-
       if (data?.success) {
+        console.log('OTP CODE:', data?.otp);
         setDisabled(false);
-        navigation.push({
-          pathname: 'screens/enter-otp.screen',
-          params: {phoneNumber},
-        });
+        navigation.navigate('enter-otp', {phoneNumber});
       }
     },
     onError: error => {
       toastRef?.current.show({
         type: 'error',
-        text: 'Something went wrong',
+        text: `Something went wrong`,
         duration: 2000,
       });
       setDisabled(false);

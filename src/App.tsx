@@ -1,4 +1,3 @@
-// import 'react-native-gesture-handler';
 import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {useColorScheme} from 'react-native';
@@ -10,9 +9,10 @@ import Navigation from './navigation';
 import YaMap from 'react-native-yamap';
 import SplashScreen from 'react-native-splash-screen';
 import CustomSplashScreen from './components/app-components/splash-screen';
-import * as Font from 'expo-font'; // For loading fonts (if using)
 import queryClient from './service/api/react-query';
-import {QueryClientProvider} from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import {enableScreens} from 'react-native-screens';
+enableScreens();
 
 YaMap.init('8e3ed980-d7b6-4dcc-ad54-7d06df299397');
 

@@ -23,8 +23,6 @@ target 'hadyauzapp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
   
-  pod 'react-native-mmkv-storage', :path => '../node_modules/react-native-mmkv-storage'
-
   target 'hadyauzappTests' do
     inherit! :complete
     # Pods for testing

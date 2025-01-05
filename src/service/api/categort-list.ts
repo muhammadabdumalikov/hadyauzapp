@@ -1,3 +1,5 @@
+import { homeHost, uniconHost } from "@/constants/env";
+
 export const fetchCategories = async () => {
   const url =
     'http://45.10.154.95:4444/api/category/parents';
@@ -25,7 +27,7 @@ export const fetchCategories = async () => {
 
 export const fetchProductsForHome = async () => {
   const url =
-    'http://192.168.100.64:3001/api/admin/products/get-by-idea';
+    `http://${homeHost}:3001/api/admin/products/get-by-idea`;
   const options = {
     method: 'POST',
     headers: {
